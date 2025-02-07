@@ -8,6 +8,7 @@ const execCmd = (command, args, cwd) => {
 		let stdout = ''
 		let stderr = ''
 
+		
 		process.stdout.on('data', (data) => {
 			console.log('stdout>data: ', data);
 			core.debug(data.toString())
@@ -27,6 +28,10 @@ const execCmd = (command, args, cwd) => {
 		process.on('close', (code) => {
 			console.log('close: ', code);
 			code !== 0 ? reject(new Error(stderr)) : resolve(stdout.trim())
+		})
+
+		process.on('error', (err) => {
+			console.log("error", err)
 		})
 	})
 }
