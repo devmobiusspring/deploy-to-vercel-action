@@ -16188,6 +16188,7 @@ const execCmd = (command, args, cwd) => {
 		let stderr = ''
 
 		process.stdout.on('data', (data) => {
+			console.log('stdout>data: ', data);
 			core.debug(data.toString())
 			if (data !== undefined && data.length > 0) {
 				stdout += data
@@ -16195,6 +16196,7 @@ const execCmd = (command, args, cwd) => {
 		})
 
 		process.stderr.on('data', (data) => {
+			console.log('stderr>data: ', data);
 			core.debug(data.toString())
 			if (data !== undefined && data.length > 0) {
 				stderr += data
@@ -16202,6 +16204,7 @@ const execCmd = (command, args, cwd) => {
 		})
 
 		process.on('close', (code) => {
+			console.log('close: ', code);
 			code !== 0 ? reject(new Error(stderr)) : resolve(stdout.trim())
 		})
 	})
