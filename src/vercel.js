@@ -72,6 +72,7 @@ const init = () => {
 
 		core.info('Starting deploy with Vercel CLI')
 		const output = await exec('vercel', commandArguments, WORKING_DIRECTORY)
+		core.info('Output', output)
 		const parsed = output.match(/(?<=https?:\/\/)(.*)/g)[0]
 
 		if (!parsed) throw new Error('Could not parse deploymentUrl')
@@ -88,7 +89,7 @@ const init = () => {
 			commandArguments.push(`--scope=${ VERCEL_SCOPE }`)
 		}
 
-		const output = await exec('vercel', commandArguments, WORKING_DIRECTORY)
+		const output = await exec('npm exec vercel', commandArguments, WORKING_DIRECTORY)
 
 		return output
 	}
